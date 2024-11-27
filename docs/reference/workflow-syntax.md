@@ -341,9 +341,51 @@ Optional. TLS certificate chain
 
 Can be a file
 
+### `before`
+
+Optional. A single test to be executed by the runner before [`tests`](#tests). Has the same structure as [`tests.<test>`](#tests-test).
+
+**Example: **
+
+```yaml
+version: "1.1"
+name: "`before` section example"
+before:
+  name: Before all
+  steps: []
+tests:
+  example1:
+    name: Test 1
+    steps: []
+  example2:
+    name: Test 2
+    steps: []
+```
+
+### `after`
+
+Optional. A single test to be executed by the runner after [`tests`](#tests). Has the same structure as [`tests.<test>`](#tests-test).
+
+**Example: **
+
+```yaml
+version: "1.1"
+name: "`after` section example"
+tests:
+  example1:
+    name: Test 1
+    steps: []
+  example2:
+    name: Test 2
+    steps: []
+after:
+  name: After all
+  steps: []
+```
+
 ### `tests`
 
-Optional. A list of tests to be executed by runner
+Optional. A list of tests to be executed by the runner
 
 ### `tests.<test>`
 
@@ -492,11 +534,11 @@ Optional. Retries config
 
 ```yaml
 retries:
-  amount: 1
+  count: 1
   interval: 1s
 ```
 
-### `tests.<test>.steps.[step].retries.amount`
+### `tests.<test>.steps.[step].retries.count`
 
 Optional. Amount of retries
 
@@ -712,10 +754,18 @@ Fields can include a file
 
 ```yaml
 formData:
-  email: hello@stepci.com
+  email: hello@stepci.com       # simple field value
   readme:
-    file: README.md
+    file: README.md             # file attachment
+  idDocument:
+    file: password.pdf          # file attachment with specific content-type
+    type: application/pdf
+  personInfo:
+    value: '{ "name": "john" }' # form field with specific content-type
+    type: application/json
 ```
+
+
 
 ### `tests.<test>.steps.[step].http.graphql`
 
